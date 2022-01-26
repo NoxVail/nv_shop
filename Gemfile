@@ -3,27 +3,30 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.5'
 
-gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
-gem 'pg'
-gem 'puma'
-gem 'sass-rails'
-gem 'webpacker'
-gem 'turbolinks'
-gem 'jbuilder'
 gem 'bootsnap', require: false
 gem 'grape'
-gem 'interactor-rails'
 gem 'interactor-contracts'
+gem 'interactor-rails'
+gem 'jbuilder'
+gem 'pg'
+gem 'puma'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
+gem 'sass-rails'
 gem 'shopify_api'
 gem 'shopify_app'
+gem 'turbolinks'
+gem 'webpacker'
 
 group :development do
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'web-console'
-  gem 'rack-mini-profiler'
+  gem 'grape_on_rails_routes'
+  gem 'httplog'
   gem 'listen'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'rack-mini-profiler'
+  gem 'rubocop'
   gem 'spring'
+  gem 'web-console'
 end
 
 group :test do
@@ -32,4 +35,4 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

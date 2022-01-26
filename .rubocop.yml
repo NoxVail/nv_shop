@@ -1,0 +1,69 @@
+# Common configuration.
+AllCops:
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*.rb
+    - config/application.rb
+    - node_modules/**/*
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Max: 25
+  Exclude:
+    - spec/**/*.rb
+    - db/**/*.rb
+    - config/environments/*.rb
+Style/Documentation:
+  Enabled: false
+
+Layout:
+  Metrics/LineLength:
+  Max: 150
+  Exclude:
+    - db/seeds/**/*.rb
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - spec/**/*.rb
+
+Metrics/ClassLength:
+  CountComments: false  # count full line comments?
+  Max: 400
+  Exclude:
+    - spec/**/*.rb
+Metrics/ParameterLists:
+  Exclude:
+    - lib/statistic/collector.rb
+
+Metrics/ModuleLength:
+  CountComments: false  # count full line comments?
+  Max: 500
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 20
+
+Style/LambdaCall:
+  EnforcedStyle: braces
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  SupportedStyles:
+    - nested
+    - compact
+  Exclude:
+    - spec/test_helper.rb
+    - lib/modules/**/*.rb
+    - lib/statistic/**/*.rb
+Lint/ParenthesesAsGroupedExpression:
+  Exclude:
+    - spec/factories/**/*.rb
+Layout/HashAlignment:
+  EnforcedHashRocketStyle:
+    - key
+    - table
+  EnforcedColonStyle:
+    - key
+    - table
+  EnforcedLastArgumentHashStyle: ignore_implicit
