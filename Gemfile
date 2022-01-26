@@ -13,10 +13,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'pry-byebug'
 end
 
 group :development do
+  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 2.0'
