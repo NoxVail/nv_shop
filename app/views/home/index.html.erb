@@ -75,7 +75,6 @@
     <div id="products"><br>Loading...</div>
     <h2>Webhooks</h2>
     <div id="webhooks">
-      <%# binding.pry %>
     <% Shop::WEBHOOK_TYPES.each do |type| %>
         <% checked = type.in?(@webhooks) %>
         <%= check_box_tag type, nil, checked %>
