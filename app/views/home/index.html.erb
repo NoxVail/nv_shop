@@ -78,7 +78,7 @@
     <% Shop::WEBHOOK_TYPES.each do |type| %>
         <% checked = type.in?(@webhooks) %>
         <%= check_box_tag type, nil, checked %>
-        <label for="<%= type %>"><%= type %></label>
+        <label for="<%= type %>"> <%= type %></label>
         <br>
     <% end %>
     </div>
