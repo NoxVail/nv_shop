@@ -8,5 +8,6 @@ class HomeController < ApplicationController
   def index
     @shop_origin = current_shopify_domain
     @host = params[:host]
+    @webhooks = Shop.find_by(shopify_domain: @shop.domain).webhooks
   end
 end

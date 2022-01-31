@@ -42,6 +42,31 @@
               }
             });
         }();
+
+        const checkboxes = document.getElementById('webhooks')
+        const urlParams = new URLSearchParams(window.location.search)
+
+        checkboxes.addEventListener('change', (event) => {
+          if (event.target.checked) {
+            fetch('/nv_shop/api/v1/create', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Shopify-Domain': urlParams.get('shop')
+              },
+              body: JSON.stringify({ topic: event.target.name })
+            })
+          } else {
+            fetch('/nv_shop/api/v1/delete', {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+                'Shopify-Domain': urlParams.get('shop')
+              },
+              body: JSON.stringify({ topic: event.target.name })
+            })
+          }
+        })
       });
     </script>
   </head>
@@ -49,15 +74,14 @@
     <h2>Products</h2>
     <div id="products"><br>Loading...</div>
     <h2>Webhooks</h2>
-
-    <% if @webhooks.present? %>
-    <ul>
-      <% @webhooks.each do |webhook| %>
-      <li><%= webhook.topic %> : <%= webhook.address %></li>
-      <% end %>
-    </ul>
-    <% else %>
-    <p>This app has not created any webhooks for this Shop. Add webhooks to your ShopifyApp initializer if you need webhooks</p>
+    <div id="webhooks">
+      <%# binding.pry %>
+    <% Shop::WEBHOOK_TYPES.each do |type| %>
+        <% checked = type.in?(@webhooks) %>
+        <%= check_box_tag type, nil, checked %>
+        <label for="<%= type %>"><%= type %></label>
+        <br>
     <% end %>
+    </div>
   </body>
 </html>
