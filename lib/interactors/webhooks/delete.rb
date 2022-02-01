@@ -14,7 +14,7 @@ class Interactors::Webhooks::Delete
   end
 
   def call
-    context.fail!(error: 422, message: 'couldn\'t delete webhook') unless webhook_delete
+    context.fail!(error: 422, message: context.shop.errors) unless webhook_delete
     context.response = { status: 200 }
   end
 
@@ -24,6 +24,7 @@ class Interactors::Webhooks::Delete
     context.shop.activate_session
     webhook = ShopifyAPI::Webhook.all.detect { |wk| wk.topic.eql?(context.params[:topic]) }
     raise_error(404, 'couldn\'t find webhook subscription') unless webhook
+
     webhook.destroy
     context.shop.webhooks.delete(context.params[:topic])
     context.shop.save

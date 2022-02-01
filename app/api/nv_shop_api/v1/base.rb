@@ -32,6 +32,9 @@ class NvShopAPI::V1::Base < Grape::API
       raise_error(interactor.error_code, interactor.error) if interactor.failure?
 
       present(interactor.response, with: entity)
+
+    rescue ActiveResource::UnauthorizedAccess => e
+      raise_error(401, e.message)
     end
 
     def raise_error(code, message, args = {}, redirect_uri = nil)

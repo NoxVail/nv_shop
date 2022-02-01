@@ -14,7 +14,7 @@ class Interactors::Webhooks::Create
   end
 
   def call
-    context.fail!(error: 422, message: 'couldn\'t create webhook') unless webhook_create
+    context.fail!(error: 422, message: context.shop.errors) unless webhook_create
     context.response = { status: 200 }
   end
 
