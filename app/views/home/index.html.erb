@@ -47,8 +47,8 @@
         const urlParams = new URLSearchParams(window.location.search)
 
         checkboxes.addEventListener('change', (event) => {
+          event.target.disabled = true
           if (event.target.checked) {
-            event.target.disabled = true
             fetch('/nv_shop/api/v1/create', {
               method: 'POST',
               headers: {
@@ -58,7 +58,6 @@
               body: JSON.stringify({ topic: event.target.name })
             }).then(() => event.target.disabled = false)
           } else {
-            event.target.disabled = true
             fetch('/nv_shop/api/v1/delete', {
               method: 'DELETE',
               headers: {
