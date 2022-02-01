@@ -49,7 +49,7 @@
         checkboxes.addEventListener('change', (event) => {
           event.target.disabled = true
           if (event.target.checked) {
-            fetch('/nv_shop/api/v1/create', {
+            fetch('/nv_shop/api/v1/webhooks/create', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +58,7 @@
               body: JSON.stringify({ topic: event.target.name })
             }).then(() => event.target.disabled = false)
           } else {
-            fetch('/nv_shop/api/v1/delete', {
+            fetch('/nv_shop/api/v1/webhooks/delete', {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
