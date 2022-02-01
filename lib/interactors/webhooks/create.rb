@@ -15,7 +15,7 @@ class Interactors::Webhooks::Create
 
   def call
     context.fail!(error: 422, message: context.shop.errors) unless webhook_create
-    context.response = { status: 200 }
+    context.response = context.shop
   end
 
   private
