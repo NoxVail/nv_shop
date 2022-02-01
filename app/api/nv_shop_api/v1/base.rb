@@ -15,7 +15,7 @@ module NvShopAPI
         shop = Shop.find_by(shopify_domain: headers['Shopify-Domain'])
         shop.activate_session
         ShopifyAPI::Webhook.create(address: ENV.fetch('WEBHOOK_URL'), topic: params[:topic])
-        shop.webhooks << params[:topic]
+        shop.webhooks << params[:topic] unless params[:topic].in?(shop.webhooks)
         shop.save
       ensure
         ShopifyAPI::Base.clear_session
