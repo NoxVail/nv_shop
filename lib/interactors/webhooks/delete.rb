@@ -1,4 +1,4 @@
-class Interactors::Webhooks::Create
+class Interactors::Webhooks::Delete
   include Interactor
   include Interactor::Contracts
 
@@ -14,16 +14,18 @@ class Interactors::Webhooks::Create
   end
 
   def call
-    context.fail!(error: 422, message: 'couldn\'t create webhook') unless webhook_create
+    context.fail!(error: 422, message: 'couldn\'t delete webhook') unless webhook_delete
     context.response = { status: 200 }
   end
 
   private
 
-  def webhook_create
+  def webhook_delete
     context.shop.activate_session
-    ShopifyAPI::Webhook.create(address: ENV.fetch('WEBHOOK_URL'), topic: context.params[:topic])
-    context.shop.webhooks << context.params[:topic] unless context.params[:topic].in?(context.shop.webhooks)
+    webhook = ShopifyAPI::Webhook.all.detect { |wk| wk.topic.eql?(context.params[:topic]) }
+    raise_error(404, 'couldn\'t find webhook subscription') unless webhook
+    webhook.destroy
+    context.shop.webhooks.delete(context.params[:topic])
     context.shop.save
   ensure
     ShopifyAPI::Base.clear_session

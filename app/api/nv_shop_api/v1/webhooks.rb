@@ -13,14 +13,7 @@ class NvShopAPI::V1::Webhooks < Grape::API
       requires :topic, type: String
     end
     delete :delete do
-      shop.activate_session
-      webhook = ShopifyAPI::Webhook.all.detect { |wk| wk.topic.eql?(params[:topic]) }
-      error!('couldn\'t find webhook subscription', 404) unless webhook
-      webhook.destroy
-      shop.webhooks.delete(params[:topic])
-      shop.save
-    ensure
-      ShopifyAPI::Base.clear_session
+      respond_with Organizers::Webhooks::Delete
     end
   end
 end
