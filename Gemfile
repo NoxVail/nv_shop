@@ -5,6 +5,7 @@ ruby '2.7.5'
 
 gem 'bootsnap', require: false
 gem 'grape'
+gem 'grape-entity'
 gem 'interactor-contracts'
 gem 'interactor-rails'
 gem 'jbuilder'
