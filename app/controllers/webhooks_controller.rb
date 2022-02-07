@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
+class WebhooksController < AuthenticatedController
   include ShopifyApp::EmbeddedApp
   include ShopifyApp::RequireKnownShop
   include ShopifyApp::ShopAccessScopesVerification
 
   def index
-    @shop_origin = current_shopify_domain
-    @host = params[:host]
-  end
-
-  def webhooks
     @webhooks = Shop.find_by(shopify_domain: @shop.domain).webhooks
   end
 end

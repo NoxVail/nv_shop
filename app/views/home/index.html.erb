@@ -43,31 +43,6 @@
             });
         }();
 
-        const checkboxes = document.getElementById('webhooks')
-        const urlParams = new URLSearchParams(window.location.search)
-
-        checkboxes.addEventListener('change', (event) => {
-          event.target.disabled = true
-          if (event.target.checked) {
-            fetch('/nv_shop/api/v1/webhooks/create', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Shopify-Domain': urlParams.get('shop')
-              },
-              body: JSON.stringify({ topic: event.target.name })
-            }).then(() => event.target.disabled = false)
-          } else {
-            fetch('/nv_shop/api/v1/webhooks/delete', {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-                'Shopify-Domain': urlParams.get('shop')
-              },
-              body: JSON.stringify({ topic: event.target.name })
-            }).then(() => event.target.disabled = false)
-          }
-        })
       });
     </script>
   </head>
@@ -75,13 +50,5 @@
     <h2>Products</h2>
     <div id="products"><br>Loading...</div>
     <h2>Webhooks</h2>
-    <div id="webhooks">
-    <% Shop::WEBHOOK_TYPES.each do |type| %>
-        <% checked = type.in?(@webhooks) %>
-        <%= check_box_tag type, nil, checked %>
-        <label for="<%= type %>"> <%= type %></label>
-        <br>
-    <% end %>
-    </div>
   </body>
 </html>
