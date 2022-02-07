@@ -10,4 +10,5 @@ RUN bundle config git.allow_insecure true
 COPY Gemfile ./
 COPY Gemfile.lock ./
 
+RUN gem update --system
 RUN bundle
