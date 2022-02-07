@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
   root to: 'home#index'
   get '/products', to: 'products#index'
   get '/webhooks', to: 'home#webhooks'
