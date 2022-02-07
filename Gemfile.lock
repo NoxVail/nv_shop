@@ -390,7 +390,6 @@ DEPENDENCIES
   interactor-contracts
   interactor-rails
   jbuilder
-  libv8-node
   listen
   mini_racer
   pg
