@@ -9,6 +9,7 @@ gem 'grape-entity'
 gem 'interactor-contracts'
 gem 'interactor-rails'
 gem 'jbuilder'
+gem 'libv8-node'
 gem 'pg'
 gem 'puma'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
@@ -37,5 +38,5 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'mini_racer', platforms: :ruby
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
