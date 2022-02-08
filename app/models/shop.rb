@@ -3,6 +3,7 @@ class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorage
 
   WEBHOOK_TYPES = YAML.load_file('config/webhook_types.yml').freeze
+  SUPPORTED_WEBHOOK_TYPES = YAML.load_file('config/supported_webhook_types.yml').freeze
 
   def api_version
     ShopifyApp.configuration.api_version
