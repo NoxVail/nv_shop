@@ -1,0 +1,9 @@
+<html lang="en">
+  <body>
+    <ul>
+      <% @products.each do |product| %>
+        <li><%= link_to product.title, "https://#{@current_shopify_session.domain}/admin/products/#{product.id}", target: "_top" %></li>
+      <% end %>
+    </ul>
+  </body>
+</html>
