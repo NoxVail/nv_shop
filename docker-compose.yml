@@ -13,6 +13,7 @@ services:
       - '3001:3000'
     depends_on:
       - db
+      - sidekiq
 
   db:
     container_name: nv_shop_db
@@ -22,6 +23,22 @@ services:
       - '5432:5432'
     volumes:
       - data-postgres:/var/lib/postgresql/data
+
+  redis:
+    container_name: nv_shop_redis
+    image: redis:latest
+
+  sidekiq:
+    container_name: nv_shop_sidekiq
+    command: bundle exec sidekiq
+    build: .
+    env_file: .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
 volumes:
   data-postgres:
     driver: local
