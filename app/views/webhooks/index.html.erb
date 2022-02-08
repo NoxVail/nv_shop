@@ -9,7 +9,6 @@
 
 <script>
   const checkboxes = document.getElementById('webhooks')
-  const urlParams = new URLSearchParams(window.location.search)
 
   checkboxes.addEventListener('change', (event) => {
     event.target.disabled = true
@@ -18,7 +17,7 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Shopify-Domain': urlParams.get('shop')
+          'Shopify-Domain': window.shopOrigin
         },
         body: JSON.stringify({ topic: event.target.name })
       }).then(() => event.target.disabled = false)
@@ -27,7 +26,7 @@
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Shopify-Domain': urlParams.get('shop')
+          'Shopify-Domain': window.shopOrigin
         },
         body: JSON.stringify({ topic: event.target.name })
       }).then(() => event.target.disabled = false)

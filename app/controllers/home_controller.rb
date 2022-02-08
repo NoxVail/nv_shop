@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
-  include ShopifyApp::EmbeddedApp
-  include ShopifyApp::RequireKnownShop
-  include ShopifyApp::ShopAccessScopesVerification
-
+class HomeController < AuthenticatedController
   def index
-    @shop_origin = current_shopify_domain
-    @host = params[:host]
-  end
-
-  def webhooks
-    @webhooks = Shop.find_by(shopify_domain: @shop.domain).webhooks
+    @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
   end
 end
