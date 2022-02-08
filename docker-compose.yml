@@ -27,6 +27,9 @@ services:
   redis:
     container_name: nv_shop_redis
     image: redis:latest
+    command: redis-server
+    ports:
+      - '6379:6379'
 
   sidekiq:
     container_name: nv_shop_sidekiq
