@@ -1,17 +1,15 @@
 ShopifyApp.configure do |config|
-  config.application_name = "My Shopify App"
-  config.old_secret = ""
-  config.scope = "read_products" # Consult this page for more scope options:
+  config.application_name = 'My Shopify App'
+  config.old_secret = ''
+  config.scope = 'read_products' # Consult this page for more scope options:
                                   # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
   config.embedded_app = true
   config.after_authenticate_job = false
-  config.api_version = "2021-10"
+  config.api_version = '2021-10'
   config.shop_session_repository = 'Shop'
 
   config.reauth_on_access_scope_changes = true
-
   config.allow_jwt_authentication = true
-  config.allow_cookie_authentication = false
 
   config.api_key = ENV.fetch('SHOPIFY_API_KEY', '').presence
   config.secret = ENV.fetch('SHOPIFY_API_SECRET', '').presence
