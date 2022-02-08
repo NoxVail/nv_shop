@@ -22,7 +22,7 @@ class Interactors::Webhooks::Create
 
   def webhook_create
     context.shop.activate_session
-    ShopifyAPI::Webhook.create(address: ENV.fetch('WEBHOOK_URL'), topic: context.params[:topic])
+    ShopifyAPI::Webhook.create(address: "#{ENV.fetch('WEBHOOK_URL')}/#{context.params[:topic].gsub('/', '_')}", topic: context.params[:topic])
     context.shop.webhooks << context.params[:topic] unless context.params[:topic].in?(context.shop.webhooks)
     context.shop.save
   ensure
