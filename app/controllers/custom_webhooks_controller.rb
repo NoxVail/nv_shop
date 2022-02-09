@@ -3,6 +3,8 @@
 class CustomWebhooksController < ApplicationController
   include ShopifyApp::WebhookVerification
 
+  # ProductsCreateJob
+  # ProductsDeleteJob
   def process_webhook
     return unless params[:type].in?(Shop::SUPPORTED_TYPES_UNDERSCORED)
 
