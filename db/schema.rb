@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_170518) do
+ActiveRecord::Schema.define(version: 2022_02_09_131457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "images", force: :cascade do |t|
+    t.integer "shopify_id"
+    t.string "imageable_type"
+    t.bigint "imageable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.integer "shopify_id"
+    t.string "title"
+    t.string "body_html"
+    t.string "vendor"
+    t.string "product_type"
+    t.string "handle"
+    t.string "published_at"
+    t.string "template_suffix"
+    t.string "status"
+    t.string "published_scope"
+    t.string "tags"
+    t.string "admin_graphql_api_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "shop_id"
+    t.index ["shop_id"], name: "index_products_on_shop_id"
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false
@@ -23,6 +51,19 @@ ActiveRecord::Schema.define(version: 2022_01_31_170518) do
     t.string "access_scopes"
     t.string "webhooks", default: [], array: true
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "variants", force: :cascade do |t|
+    t.integer "shopify_id"
+    t.string "title"
+    t.string "price"
+    t.string "sku"
+    t.float "weight"
+    t.string "weight_unit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
 end
