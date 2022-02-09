@@ -4,10 +4,7 @@ class Shop < ActiveRecord::Base
 
   WEBHOOK_TYPES = YAML.load_file('config/webhook_types.yml').freeze
   SUPPORTED_WEBHOOK_TYPES = YAML.load_file('config/supported_webhook_types.yml').freeze
-
-  def self.supported_types_underscored
-    Shop::SUPPORTED_WEBHOOK_TYPES.map { |type| type.gsub('/', '_') }
-  end
+  SUPPORTED_TYPES_UNDERSCORED = SUPPORTED_WEBHOOK_TYPES.map { |type| type.gsub('/', '_') }.freeze
 
   def api_version
     ShopifyApp.configuration.api_version
