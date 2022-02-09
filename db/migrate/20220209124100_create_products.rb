@@ -3,7 +3,7 @@ class CreateProducts < ActiveRecord::Migration[6.1]
     create_table :products do |t|
       t.integer :shopify_id
       t.string :title
-      t.string :body_html
+      t.string :description
       t.string :vendor
       t.string :product_type
       t.string :handle
@@ -16,6 +16,7 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.timestamps
 
       t.references :shop, index: true
+      t.references :variant, index: true
     end
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorage
 
@@ -6,7 +7,7 @@ class Shop < ActiveRecord::Base
   SUPPORTED_WEBHOOK_TYPES = YAML.load_file('config/supported_webhook_types.yml').freeze
   SUPPORTED_TYPES_UNDERSCORED = SUPPORTED_WEBHOOK_TYPES.map { |type| type.gsub('/', '_') }.freeze
 
-  has_many :products
+  has_many :products, dependent: :destroy
 
   def api_version
     ShopifyApp.configuration.api_version

@@ -17,17 +17,18 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
 
   create_table "images", force: :cascade do |t|
     t.integer "shopify_id"
-    t.string "imageable_type"
-    t.bigint "imageable_id"
+    t.string "src"
+    t.string "owner_type"
+    t.bigint "owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
+    t.index ["owner_type", "owner_id"], name: "index_images_on_owner"
   end
 
   create_table "products", force: :cascade do |t|
     t.integer "shopify_id"
     t.string "title"
-    t.string "body_html"
+    t.string "description"
     t.string "vendor"
     t.string "product_type"
     t.string "handle"
@@ -40,7 +41,9 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shop_id"
+    t.bigint "variant_id"
     t.index ["shop_id"], name: "index_products_on_shop_id"
+    t.index ["variant_id"], name: "index_products_on_variant_id"
   end
 
   create_table "shops", force: :cascade do |t|
