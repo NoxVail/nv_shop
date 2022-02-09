@@ -4,9 +4,9 @@ class CustomWebhooksController < ApplicationController
   include ShopifyApp::WebhookVerification
 
   def process_webhook
-    return unless params[:type].in?(Shop::SUPPORTED_WEBHOOK_TYPES)
+    return unless params[:type].in?(Shop.supported_types_underscored)
 
-    job = "#{params[:type].titleize.delete(' ')}Job".constantize
+    job = "#{params[:type].classify}Job".constantize
     job.perform_later(params[:type])
   end
 end
