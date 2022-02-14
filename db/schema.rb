@@ -16,17 +16,17 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
   enable_extension "plpgsql"
 
   create_table "images", force: :cascade do |t|
-    t.integer "shopify_id"
+    t.bigint "shopify_id"
     t.string "src"
-    t.string "owner_type"
-    t.bigint "owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "owner_type"
+    t.bigint "owner_id"
     t.index ["owner_type", "owner_id"], name: "index_images_on_owner"
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "shopify_id"
+    t.bigint "shopify_id"
     t.string "title"
     t.string "description"
     t.string "vendor"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
   end
 
   create_table "variants", force: :cascade do |t|
-    t.integer "shopify_id"
+    t.bigint "shopify_id"
     t.string "title"
     t.string "price"
     t.string "sku"

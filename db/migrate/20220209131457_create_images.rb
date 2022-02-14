@@ -1,7 +1,7 @@
 class CreateImages < ActiveRecord::Migration[6.1]
   def change
     create_table :images do |t|
-      t.integer :shopify_id
+      t.bigint :shopify_id
       t.string :src
       t.timestamps
 

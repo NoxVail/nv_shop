@@ -1,4 +1,4 @@
-class ProductsDeleteJob < ApplicationJob
+class Webhooks::ProductsDeleteJob < ApplicationJob
   queue_as :default
 
   def perform(*args)

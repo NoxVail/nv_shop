@@ -1,4 +1,4 @@
-class ProductsUpdateJob < ApplicationJob
+class Webhooks::ProductsUpdateJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
