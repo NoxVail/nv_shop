@@ -18,13 +18,8 @@ class Interactors::Webhooks::ProductsCreate
   private
 
   def create_product
-    context.params.slice(*DIRECT_FIELDS).keys.map(&:to_sym).each { |k| mapper(k, k) }
-    FIELD_MAP.each { |k, v| mapper(k, v) }
-    context.product.shop = context.shop
+    result = context.params.slice(*DIRECT_FIELDS)
+    FIELD_MAP.each { |k, v| result[k] = context.params[v] }
     context.product.save
-  end
-
-  def mapper(key, value)
-    context.product.send("#{key}=", context.params[value])
   end
 end

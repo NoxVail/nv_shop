@@ -18,6 +18,7 @@ gem 'sass-rails'
 gem 'shopify_api'
 gem 'shopify_app'
 gem 'sidekiq'
+gem 'sidekiq-failures'
 gem 'turbolinks'
 gem 'webpacker'
 

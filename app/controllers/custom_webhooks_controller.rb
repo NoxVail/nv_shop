@@ -24,7 +24,7 @@ class CustomWebhooksController < ApplicationController
   def job_params
     {
       shop_domain: request.headers['HTTP_X_SHOPIFY_SHOP_DOMAIN'],
-      webhook_params: webhook_params.to_h
+      params: webhook_params.to_h
     }
   end
 end

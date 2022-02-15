@@ -1,6 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   mount NvShopAPI::Main, at: '/'
   mount ShopifyApp::Engine, at: '/'
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get 'hello_world', to: 'hello_world#index'
 

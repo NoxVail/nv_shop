@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.web_console.whitelisted_ips = '172.16.0.0/12'
   config.hosts = (config.hosts rescue []) << /[-w]+\.ngrok\.io/
   config.hosts << 'noxvail.ngrok.io'
   # Settings specified here will take precedence over those in config/application.rb.
