@@ -20,6 +20,7 @@ class Interactors::Webhooks::ProductsCreate
   def create_product
     result = context.params.slice(*DIRECT_FIELDS)
     FIELD_MAP.each { |k, v| result[k] = context.params[v] }
+    context.product.attributes = result
     context.product.save
   end
 end
