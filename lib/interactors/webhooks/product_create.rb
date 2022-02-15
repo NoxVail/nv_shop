@@ -1,4 +1,4 @@
-class Interactors::Webhooks::ProductsCreate
+class Interactors::Webhooks::ProductCreate
   include Interactor
   include Interactor::Contracts
 
