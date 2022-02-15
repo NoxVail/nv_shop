@@ -1,7 +1,8 @@
 class Webhooks::ProductsCreateJob < ApplicationJob
-  queue_as :default
+  queue_as :webhooks
 
   def perform(...)
-    Organizers::Webhooks::ProductsCreate.(...)
+    interactor = Organizers::Webhooks::ProductsCreate.(...)
+    raise interactor.error if interactor.failure?
   end
 end

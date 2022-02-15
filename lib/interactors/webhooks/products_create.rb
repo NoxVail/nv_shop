@@ -27,13 +27,13 @@ class Interactors::Webhooks::ProductsCreate
   private
 
   def create_product
-    result = context.params.slice(*DIRECT_FIELDS)
-    FIELD_MAP.each { |k, v| result[k] = context.params[v] }
-    context.product.attributes = result
-    context.product.save
+    product_data = context.params.slice(*DIRECT_FIELDS)
+    FIELD_MAP.each { |k, v| product_data[k] = context.params[v] }
+    context.product.attributes = product_data
+    failed(context.product.errors.full_messages) unless context.product.save
   end
 
   def failed(error)
-    context.fail!(error: error)
+    context.fail!(error: error.join(', '))
   end
 end
