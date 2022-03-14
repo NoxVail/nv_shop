@@ -16,11 +16,14 @@ ActiveRecord::Schema.define(version: 2022_03_14_111606) do
   enable_extension "plpgsql"
 
   create_table "funnels", force: :cascade do |t|
+    t.string "name"
     t.jsonb "data"
     t.boolean "active", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shop_id"
+    t.bigint "offer_id"
+    t.index ["offer_id"], name: "index_funnels_on_offer_id"
     t.index ["shop_id"], name: "index_funnels_on_shop_id"
   end
 
