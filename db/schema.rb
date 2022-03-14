@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_131457) do
+ActiveRecord::Schema.define(version: 2022_03_14_111606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "funnels", force: :cascade do |t|
+    t.jsonb "data"
+    t.boolean "active", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "shop_id"
+    t.index ["shop_id"], name: "index_funnels_on_shop_id"
+  end
 
   create_table "images", force: :cascade do |t|
     t.bigint "shopify_id"
@@ -23,6 +32,17 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
     t.string "owner_type"
     t.bigint "owner_id"
     t.index ["owner_type", "owner_id"], name: "index_images_on_owner"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "funnel_id"
+    t.bigint "product_id"
+    t.bigint "setting_id"
+    t.index ["funnel_id"], name: "index_offers_on_funnel_id"
+    t.index ["product_id"], name: "index_offers_on_product_id"
+    t.index ["setting_id"], name: "index_offers_on_setting_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -44,6 +64,14 @@ ActiveRecord::Schema.define(version: 2022_02_09_131457) do
     t.bigint "variant_id"
     t.index ["shop_id"], name: "index_products_on_shop_id"
     t.index ["variant_id"], name: "index_products_on_variant_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.binary "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "offer_id"
+    t.index ["offer_id"], name: "index_settings_on_offer_id"
   end
 
   create_table "shops", force: :cascade do |t|
