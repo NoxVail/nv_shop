@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 2022_03_14_111606) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shop_id"
-    t.bigint "offer_id"
-    t.index ["offer_id"], name: "index_funnels_on_offer_id"
     t.index ["shop_id"], name: "index_funnels_on_shop_id"
   end
 
@@ -42,10 +40,8 @@ ActiveRecord::Schema.define(version: 2022_03_14_111606) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "funnel_id"
     t.bigint "product_id"
-    t.bigint "setting_id"
     t.index ["funnel_id"], name: "index_offers_on_funnel_id"
     t.index ["product_id"], name: "index_offers_on_product_id"
-    t.index ["setting_id"], name: "index_offers_on_setting_id"
   end
 
   create_table "products", force: :cascade do |t|

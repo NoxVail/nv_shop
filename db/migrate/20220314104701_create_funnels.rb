@@ -7,7 +7,6 @@ class CreateFunnels < ActiveRecord::Migration[6.1]
       t.timestamps
 
       t.references :shop, index: true
-      t.references :offer, index: true
     end
   end
 end

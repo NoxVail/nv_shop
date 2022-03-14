@@ -5,7 +5,6 @@ class CreateOffers < ActiveRecord::Migration[6.1]
 
       t.references :funnel, index: true
       t.references :product, index: true
-      t.references :setting, index: true
     end
   end
 end
