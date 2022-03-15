@@ -10,8 +10,8 @@
 </div>
 
 <script>
-  const element = document.getElementById('create_funnel');
-  element.addEventListener('click', () => {
+  const create_funnel_button = document.getElementById('create_funnel');
+  create_funnel_button.addEventListener('click', () => {
     fetch('/nv_shop/api/v1/funnels/create', {
       method: 'POST',
       headers: {
