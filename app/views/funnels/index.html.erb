@@ -1,6 +1,23 @@
+<br>
+<%= button_tag('Create Funnel', { id: 'create_funnel', type: 'button' }) %>
+
 <div id="funnels">
   <br>
   <% @funnels.each do |funnel| %>
     <%= "#{funnel.name}, #{funnel.id}" %>
+    <br>
   <% end %>
 </div>
+
+<script>
+  const element = document.getElementById('create_funnel');
+  element.addEventListener('click', () => {
+    fetch('/nv_shop/api/v1/funnels/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      }
+    })
+  })
+</script>

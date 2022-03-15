@@ -44,6 +44,7 @@ class NvShopAPI::V1::Base < Grape::API
   end
 
   mount NvShopAPI::V1::Webhooks
+  mount NvShopAPI::V1::Funnels
 
   route :any, '*path' do
     raise_error(404, 'Endpoint Not Found')
