@@ -125,6 +125,8 @@ GEM
       dry-schema (~> 1.8, >= 1.8.0)
     erubi (1.10.0)
     execjs (2.8.1)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     faraday (1.9.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -390,6 +392,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  faker
   grape
   grape-entity
   grape_on_rails_routes

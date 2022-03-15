@@ -23,6 +23,7 @@ gem 'turbolinks'
 gem 'webpacker'
 
 group :development do
+  gem 'faker'
   gem 'grape_on_rails_routes'
   gem 'httplog'
   gem 'listen'
