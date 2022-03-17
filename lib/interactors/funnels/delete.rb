@@ -18,9 +18,7 @@ class Interactors::Funnels::Delete
 
   def funnel_delete
     context.fail!(error: 404, message: 'record not found') unless funnel_find
-    context.funnel.destroy!
-  rescue ActiveRecord::RecordNotDestroyed
-    context.fail!(error: 422, message: context.funnel.errors)
+    context.fail!(error: 422, message: context.funnel.errors) unless context.funnel.destroy
   end
 
   def funnel_find
