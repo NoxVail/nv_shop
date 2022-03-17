@@ -1,5 +1,21 @@
 class FunnelsController < AuthenticatedController
+  before_action :shop, only: %i[index show]
+
   def index
-    @funnels = Shop.find_by(shopify_domain: current_shopify_domain).funnels
+    @funnels = @shop.funnels
+  end
+
+  def show
+    @funnel = @shop.funnels.find(funnel_params[:id])
+  end
+
+  def funnel_params
+    params.permit(:id)
+  end
+
+  private
+
+  def shop
+    @shop = Shop.find_by(shopify_domain: current_shopify_domain)
   end
 end

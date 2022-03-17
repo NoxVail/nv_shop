@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/webhooks_list', to: 'home#webhooks'
   get '/funnels_list', to: 'funnels#index'
 
+  get 'funnels/:id', to: 'funnels#show', as: 'funnels_show'
+
   post '/custom_webhooks/:type', to: 'custom_webhooks#process_webhook'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

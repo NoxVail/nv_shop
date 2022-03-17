@@ -1,0 +1,19 @@
+<br>
+<%= @funnel.name %>
+<br>
+<br>
+<%= button_tag('Delete Funnel', { id: 'delete_funnel', type: 'button' }) %>
+
+<script>
+  const delete_funnel_button = document.getElementById('delete_funnel');
+  const id = window.location.pathname.match(/\d+/)[0]
+  delete_funnel_button.addEventListener('click', () => {
+    fetch(`/nv_shop/api/v1/funnels/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      }
+    })
+  })
+</script>

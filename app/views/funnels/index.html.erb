@@ -4,7 +4,7 @@
 <div id="funnels">
   <br>
   <% @funnels.each do |funnel| %>
-    <%= "#{funnel.name}, #{funnel.id}" %>
+    <%= link_to "#{funnel.name}", funnels_show_path(funnel.id) %>
     <br>
   <% end %>
 </div>

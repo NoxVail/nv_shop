@@ -8,7 +8,7 @@ class Shop < ActiveRecord::Base
   SUPPORTED_TYPES_UNDERSCORED = SUPPORTED_WEBHOOK_TYPES.map { |type| type.gsub('/', '_') }.freeze
 
   has_many :products, dependent: :destroy
-  has_many :funnels
+  has_many :funnels, dependent: :destroy
 
   def api_version
     ShopifyApp.configuration.api_version
