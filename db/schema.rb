@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2022_03_14_111606) do
 
   create_table "funnels", force: :cascade do |t|
     t.string "name"
-    t.jsonb "data"
+    t.jsonb "data", default: {}
     t.boolean "active", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

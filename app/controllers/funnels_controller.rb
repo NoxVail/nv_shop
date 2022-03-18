@@ -7,6 +7,7 @@ class FunnelsController < AuthenticatedController
 
   def show
     @funnel = @shop.funnels.find(funnel_params[:id])
+    @trigger_products = Product.where(id: @funnel.data['product_ids'])
   end
 
   def funnel_params

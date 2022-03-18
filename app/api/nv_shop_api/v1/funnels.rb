@@ -12,5 +12,13 @@ class NvShopAPI::V1::Funnels < Grape::API
     delete 'delete/:id' do
       respond_with Organizers::Funnels::Delete
     end
+
+    desc 'add trigger products'
+    params do
+      requires :id, type: String, allow_blank: false
+    end
+    post :trigger_products do
+      respond_with Organizers::Funnels::TriggerProducts::Create
+    end
   end
 end

@@ -3,11 +3,28 @@
 <br>
 <br>
 <%= button_tag('Delete Funnel', { id: 'delete_funnel', type: 'button' }) %>
+<br>
+<br>
+<%= button_tag('Add Trigger Products', { id: 'add_trigger_products', type: 'button' }) %>
+<br>
+<br>
+<% if @trigger_products.present? %>
+  <% @trigger_products.each do |product| %>
+  <%= product.title %>
+  <br>
+  <% end %>
+<% end %>
 
 <script>
-  const delete_funnel_button = document.getElementById('delete_funnel');
-  const id = window.location.pathname.match(/\d+/)[0]
-  delete_funnel_button.addEventListener('click', () => {
+  const delete_funnel_btn = document.getElementById('delete_funnel')
+  const add_trigger_products_btn = document.getElementById('add_trigger_products')
+
+  delete_funnel_btn.addEventListener('click', deleteFunnelBtnClickHandler)
+  add_trigger_products_btn.addEventListener('click', addTriggerProductsBtnClickHandler)
+
+  function deleteFunnelBtnClickHandler() {
+    const id = window.location.pathname.match(/\d+/)[0]
+
     fetch(`/nv_shop/api/v1/funnels/delete/${id}`, {
       method: 'DELETE',
       headers: {
@@ -15,5 +32,18 @@
         'Shopify-Domain': window.shopOrigin
       }
     })
-  })
+  }
+
+  function addTriggerProductsBtnClickHandler() {
+    const id = window.location.pathname.match(/\d+/)[0]
+
+    fetch('/nv_shop/api/v1/funnels/trigger_products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      },
+      body: JSON.stringify({ id: id })
+    })
+  }
 </script>
