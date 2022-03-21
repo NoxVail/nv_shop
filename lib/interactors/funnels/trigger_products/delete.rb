@@ -1,4 +1,4 @@
-class Interactors::Funnels::TriggerProducts::Create
+class Interactors::Funnels::TriggerProducts::Delete
   include Interactor
   include Interactor::Contracts
 
@@ -14,15 +14,16 @@ class Interactors::Funnels::TriggerProducts::Create
   end
 
   def call
-    context.fail!(error: 422, message: context.funnel.errors) unless trigger_products_create
+    trigger_products_delete
   end
 
   private
 
-  def trigger_products_create
+  def trigger_products_delete
     context.fail!(error: 404, message: 'record not found') unless funnel_find
-    context.funnel.assign_attributes(data: { product_ids: Product.order('RANDOM()').limit(2).pluck(:id) })
-    context.funnel.save
+
+    context.funnel.data = {}
+    context.fail!(error: 422, message: context.funnel.errors) unless context.funnel.save
   end
 
   def funnel_find

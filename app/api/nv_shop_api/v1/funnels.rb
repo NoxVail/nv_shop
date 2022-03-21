@@ -15,10 +15,18 @@ class NvShopAPI::V1::Funnels < Grape::API
 
     desc 'add trigger products'
     params do
-      requires :id, type: String, allow_blank: false
+      requires :funnel_id, type: String, allow_blank: false
     end
     post :trigger_products do
       respond_with Organizers::Funnels::TriggerProducts::Create
+    end
+
+    desc 'delete trigger products'
+    params do
+      requires :funnel_id, type: String, allow_blank: false
+    end
+    delete :trigger_products do
+      respond_with Interactors::Funnels::TriggerProducts::Delete
     end
   end
 end

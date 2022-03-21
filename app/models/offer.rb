@@ -1,5 +1,5 @@
 class Offer < ApplicationRecord
   belongs_to :funnel
   belongs_to :product
-  has_one :setting
+  has_one :setting, dependent: :destroy
 end

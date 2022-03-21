@@ -1,4 +1,4 @@
-<br>
+<h4>Funnel</h4>
 <%= @funnel.name %>
 <br>
 <br>
@@ -6,8 +6,9 @@
 <br>
 <br>
 <%= button_tag('Add Trigger Products', { id: 'add_trigger_products', type: 'button' }) %>
-<br>
-<br>
+<%= button_tag('Delete Trigger Products', { id: 'delete_trigger_products', type: 'button' }) %>
+
+<h4>Trigger Products</h4>
 <% if @trigger_products.present? %>
   <% @trigger_products.each do |product| %>
   <%= product.title %>
@@ -15,17 +16,42 @@
   <% end %>
 <% end %>
 
+<h4>Offers</h4>
+<%= button_tag('Create Offer', { id: 'create_offer', type: 'button' }) %>
+<br>
+<br>
+<% if @offers.present? %>
+  <div id='offers'>
+    <% @offers.each do |offer| %>
+      <%= "id: #{offer.id}, product: #{offer.product.title}" %>
+      <%= button_tag('Delete Offer', { id: 'delete_offer_btn', offer_id: offer.id, type: 'button' }) %>
+      <br>
+    <% end %>
+  </div>
+<% end %>
+
 <script>
+  const funnel_id = window.location.pathname.match(/\d+/)[0]
   const delete_funnel_btn = document.getElementById('delete_funnel')
   const add_trigger_products_btn = document.getElementById('add_trigger_products')
+  const delete_trigger_products_btn = document.getElementById('delete_trigger_products')
+  const create_offer_btn = document.getElementById('create_offer')
+  const offers_wrapper = document.getElementById('offers')
 
   delete_funnel_btn.addEventListener('click', deleteFunnelBtnClickHandler)
   add_trigger_products_btn.addEventListener('click', addTriggerProductsBtnClickHandler)
+  delete_trigger_products_btn.addEventListener('click', deleteTriggerProductsBtnClickHandler)
+  create_offer_btn.addEventListener('click', createOfferBtnClickHandler)
+
+  offers_wrapper.addEventListener('click', (e) => {
+    if (e.target.nodeName === 'BUTTON') {
+      let offer_id = e.target.getAttribute('offer_id')
+      deleteOfferBTNClickHandler(offer_id)
+    }
+  })
 
   function deleteFunnelBtnClickHandler() {
-    const id = window.location.pathname.match(/\d+/)[0]
-
-    fetch(`/nv_shop/api/v1/funnels/delete/${id}`, {
+    fetch(`/nv_shop/api/v1/funnels/delete/${funnel_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -35,15 +61,46 @@
   }
 
   function addTriggerProductsBtnClickHandler() {
-    const id = window.location.pathname.match(/\d+/)[0]
-
     fetch('/nv_shop/api/v1/funnels/trigger_products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Shopify-Domain': window.shopOrigin
       },
-      body: JSON.stringify({ id: id })
+      body: JSON.stringify({ funnel_id: funnel_id })
+    })
+  }
+
+  function deleteTriggerProductsBtnClickHandler() {
+    fetch('/nv_shop/api/v1/funnels/trigger_products', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      },
+      body: JSON.stringify({ funnel_id: funnel_id })
+    })
+  }
+
+  function createOfferBtnClickHandler() {
+    fetch('/nv_shop/api/v1/offers/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      },
+      body: JSON.stringify({ funnel_id: funnel_id })
+    })
+  }
+
+  function deleteOfferBTNClickHandler(offer_id) {
+    fetch('/nv_shop/api/v1/offers/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shopify-Domain': window.shopOrigin
+      },
+      body: JSON.stringify({ funnel_id: funnel_id, offer_id: offer_id})
     })
   }
 </script>
