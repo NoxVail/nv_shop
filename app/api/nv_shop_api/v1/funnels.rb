@@ -7,9 +7,9 @@ class NvShopAPI::V1::Funnels < Grape::API
 
     desc 'delete funnel'
     params do
-      requires :id, type: String, allow_blank: false
+      requires :funnel_id, type: String, allow_blank: false
     end
-    delete 'delete/:id' do
+    delete 'delete/:funnel_id' do
       respond_with Organizers::Funnels::Delete
     end
 

@@ -22,7 +22,7 @@ class Interactors::Funnels::Delete
   end
 
   def funnel_find
-    context.funnel = context.shop.funnels.find_by(id: context.params[:id])
+    context.funnel = context.shop.funnels.find_by(id: context.params[:funnel_id])
   end
 
   def failed(error)
