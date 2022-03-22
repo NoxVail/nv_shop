@@ -6,6 +6,7 @@ class Interactors::Offers::Create < Interactors::Base
 
   def call
     offer_create
+    context.response = context.offer
   end
 
   private

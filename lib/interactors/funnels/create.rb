@@ -5,6 +5,7 @@ class Interactors::Funnels::Create < Interactors::Base
 
   def call
     context.fail!(error: 422, message: context.funnel.errors) unless funnel_create
+    context.response = context.funnel
   end
 
   private

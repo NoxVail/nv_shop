@@ -5,7 +5,8 @@ class NvShopAPI::V1::Offers < Grape::API
       requires :funnel_id, type: String, allow_blank: false
     end
     post :create do
-      respond_with Organizers::Offers::Create
+      respond_with Organizers::Offers::Create,
+                   NvShopAPI::Entities::Offer
     end
 
     desc 'delete offer'
