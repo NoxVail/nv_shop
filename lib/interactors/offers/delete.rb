@@ -18,6 +18,5 @@ class Interactors::Offers::Delete < Interactors::Base
 
   def offer_find
     context.offer = context.funnel.offers.find_by(id: context.params[:offer_id])
-    # context.offer = context.shop.offers.find_by(id: context.params[:offer_id], funnel_id: context.params[:funnel_id])
   end
 end
