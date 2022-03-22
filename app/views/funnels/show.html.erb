@@ -24,7 +24,7 @@
   <div id='offers'>
     <% @offers.each do |offer| %>
       <%= "id: #{offer.id}, product: #{offer.product.title}" %>
-      <%= button_tag('Delete Offer', { id: 'delete_offer_btn', offer_id: offer.id, type: 'button' }) %>
+      <%= button_tag('Delete Offer', { class: 'delete_offer_btn', offer_id: offer.id, type: 'button' }) %>
       <br>
     <% end %>
   </div>
