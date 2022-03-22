@@ -1,14 +1,7 @@
-class Interactors::Webhooks::VariantCreate
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Webhooks::VariantCreate < Interactors::Base
   expects do
     required(:params).filled(:hash?)
     required(:product).filled
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   DIRECT_FIELDS = %i[title price sku weight weight_unit].freeze
@@ -28,9 +21,5 @@ class Interactors::Webhooks::VariantCreate
       variant = context.product.variants.create_with(variant_data).find_or_initialize_by(shopify_id: variant_data[:shopify_id])
       failed(variant.errors.full_messages) unless variant.save
     end
-  end
-
-  def failed(error)
-    context.fail!(error: error.join(', '))
   end
 end

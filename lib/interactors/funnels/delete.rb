@@ -1,14 +1,7 @@
-class Interactors::Funnels::Delete
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Funnels::Delete < Interactors::Base
   expects do
     required(:shop).filled
     required(:funnel).filled
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   def call
@@ -19,9 +12,5 @@ class Interactors::Funnels::Delete
 
   def funnel_delete
     context.fail!(error: 422, message: context.funnel.errors) unless context.funnel.destroy
-  end
-
-  def failed(error)
-    context.fail!(error: error)
   end
 end

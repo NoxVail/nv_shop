@@ -1,16 +1,9 @@
-class Interactors::Shared::FunnelFind
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Shared::FunnelFind < Interactors::Base
   expects do
     required(:shop).filled
     required(:params).schema do
       required(:funnel_id).filled
     end
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   def call
@@ -21,9 +14,5 @@ class Interactors::Shared::FunnelFind
 
   def funnel_find
     context.funnel = context.shop.funnels.find_by(id: context.params[:funnel_id])
-  end
-
-  def failed(error)
-    context.fail!(error: error)
   end
 end

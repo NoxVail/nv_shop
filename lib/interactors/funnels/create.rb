@@ -1,13 +1,6 @@
-class Interactors::Funnels::Create
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Funnels::Create < Interactors::Base
   expects do
     required(:shop).filled
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   def call
@@ -19,9 +12,5 @@ class Interactors::Funnels::Create
   def funnel_create
     context.funnel = context.shop.funnels.new(name: Faker::ElectricalComponents.active)
     context.funnel.save
-  end
-
-  def failed(error)
-    context.fail!(error: error)
   end
 end

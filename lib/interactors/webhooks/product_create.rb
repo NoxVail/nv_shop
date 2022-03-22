@@ -1,14 +1,7 @@
-class Interactors::Webhooks::ProductCreate
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Webhooks::ProductCreate < Interactors::Base
   expects do
     required(:shop_domain).filled(:str?)
     required(:params).filled(:hash?)
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   DIRECT_FIELDS = %i[title vendor product_type handle published_at template_suffix status published_scope tags admin_graphql_api_id].freeze
@@ -31,9 +24,5 @@ class Interactors::Webhooks::ProductCreate
     FIELD_MAP.each { |k, v| product_data[k] = context.params[v] }
     context.product.attributes = product_data
     failed(context.product.errors.full_messages) unless context.product.save
-  end
-
-  def failed(error)
-    context.fail!(error: error.join(', '))
   end
 end

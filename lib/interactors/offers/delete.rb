@@ -1,14 +1,7 @@
-class Interactors::Offers::Delete
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Offers::Delete < Interactors::Base
   expects do
     required(:shop).filled
     required(:funnel).filled
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   def call
@@ -26,9 +19,5 @@ class Interactors::Offers::Delete
   def offer_find
     context.offer = context.funnel.offers.find_by(id: context.params[:offer_id])
     # context.offer = context.shop.offers.find_by(id: context.params[:offer_id], funnel_id: context.params[:funnel_id])
-  end
-
-  def failed
-    context.fail!(error: error)
   end
 end

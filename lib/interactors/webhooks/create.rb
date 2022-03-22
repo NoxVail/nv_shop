@@ -1,16 +1,9 @@
-class Interactors::Webhooks::Create
-  include Interactor
-  include Interactor::Contracts
-
+class Interactors::Webhooks::Create < Interactors::Base
   expects do
     required(:shop).filled
     required(:params).schema do
       required(:topic).filled
     end
-  end
-
-  on_breach do |breaches|
-    failed(breaches.map(&:messages).flatten)
   end
 
   def call
@@ -27,9 +20,5 @@ class Interactors::Webhooks::Create
     context.shop.save
   ensure
     ShopifyAPI::Base.clear_session
-  end
-
-  def failed(error)
-    context.fail!(error: error)
   end
 end
