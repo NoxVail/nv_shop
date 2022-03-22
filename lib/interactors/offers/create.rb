@@ -4,9 +4,7 @@ class Interactors::Offers::Create
 
   expects do
     required(:shop).filled
-    required(:params).schema do
-      required(:funnel_id).filled
-    end
+    required(:funnel).filled
   end
 
   on_breach do |breaches|
@@ -20,14 +18,8 @@ class Interactors::Offers::Create
   private
 
   def offer_create
-    context.fail!(error: 404, message: 'record not found') unless funnel_find
-
-    context.offer = context.funnel.offers.new(product_id: Product.order('RANDOM()').first.id)
+    context.offer = context.funnel.offers.new(product_id: context.shop.products.order('RANDOM()').first.id)
     context.fail!(error: 422, message: context.offer.errors) unless context.offer.save
-  end
-
-  def funnel_find
-    context.funnel = context.shop.funnels.find_by(id: context.params[:funnel_id])
   end
 
   def failed

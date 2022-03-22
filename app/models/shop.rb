@@ -9,6 +9,7 @@ class Shop < ActiveRecord::Base
 
   has_many :products, dependent: :destroy
   has_many :funnels, dependent: :destroy
+  has_many :offers, through: :funnels
 
   def api_version
     ShopifyApp.configuration.api_version

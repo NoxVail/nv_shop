@@ -26,7 +26,7 @@ class NvShopAPI::V1::Funnels < Grape::API
       requires :funnel_id, type: String, allow_blank: false
     end
     delete :trigger_products do
-      respond_with Interactors::Funnels::TriggerProducts::Delete
+      respond_with Organizers::Funnels::TriggerProducts::Delete
     end
   end
 end

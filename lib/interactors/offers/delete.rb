@@ -4,9 +4,7 @@ class Interactors::Offers::Delete
 
   expects do
     required(:shop).filled
-    required(:params).schema do
-      required(:funnel_id).filled
-    end
+    required(:funnel).filled
   end
 
   on_breach do |breaches|
@@ -20,18 +18,14 @@ class Interactors::Offers::Delete
   private
 
   def funnel_delete
-    context.fail!(error: 404, message: 'funnel not found') unless funnel_find
     context.fail!(error: 404, message: 'offer not found') unless offer_find
 
     context.fail!(error: 422, message: context.offer.errors) unless context.offer.destroy
   end
 
-  def funnel_find
-    context.funnel = context.shop.funnels.find_by(id: context.params[:funnel_id])
-  end
-
   def offer_find
     context.offer = context.funnel.offers.find_by(id: context.params[:offer_id])
+    # context.offer = context.shop.offers.find_by(id: context.params[:offer_id], funnel_id: context.params[:funnel_id])
   end
 
   def failed

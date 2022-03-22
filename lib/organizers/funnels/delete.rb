@@ -1,5 +1,6 @@
 class Organizers::Funnels::Delete
   include Interactor::Organizer
 
-  organize Interactors::Funnels::Delete
+  organize Interactors::Shared::FunnelFind,
+           Interactors::Funnels::Delete
 end
