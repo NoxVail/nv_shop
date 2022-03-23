@@ -1,5 +1,18 @@
 version: '3.8'
 services:
+  extension:
+    container_name: post_checkout
+    build:
+      context: .
+      dockerfile: extension.Dockerfile
+    env_file:
+      - ocudev-ihor.bohdan-checkout-post-purchase/.env
+    volumes:
+      - .:/app
+    command: /bin/sh -c "cd /app/ocudev-ihor.bohdan-checkout-post-purchase && yarn && yarn start --port=39351"
+    ports:
+      - '39351:39351'
+
   web:
     container_name: nv_shop
     command: /bin/sh -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0 --pid tmp/pids/server.pid"
